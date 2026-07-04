@@ -226,6 +226,30 @@ export default function AboutPage() {
         </div>
       </section>
 
+
+      {/* Other Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center items-center">
+            <div className="order-1 lg:order-2 flex justify-center">
+              <FadeIn direction="left" delay={0.3}>
+                <div className="relative w-full max-w-[400px]">
+                  <Image
+                    src="/images/UBL_IMG.jpeg"
+                    alt="Reverend Zulfiqar Barkat"
+                    width={400}
+                    height={400}
+                    className=" shadow-lg hover:shadow-xl transition-shadow duration-300 border-4"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+              </FadeIn>
+            </div>
+           
+          </div>
+        </div>
+      </section>
+
       <ServicesSection onDonateClick={handleDonateClick} />
       {/* Core Areas of Service */}
       {/* <section className="py-16 bg-background">
