@@ -13,7 +13,7 @@ interface DonationModalProps {
   onClose: () => void;
 }
 
-export type PaymentMethod = "UBL" | "MBL";
+export type PaymentMethod = "UBL" | "MBL" | "UBL2";
 
 export function DonationModal({ isOpen, onClose }: DonationModalProps) {
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -40,6 +40,13 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
     accountNumber: "9000333669185",
     accountTitle: "Way of Heaven Welfare Organization",
     iban: "PK95 UNIL 0109 0003 3366 9185",
+  };
+
+  const ublDetails2 = {
+    bankName: "United Bank Limited (UBL)",
+    accountNumber: "9000377928181",
+    accountTitle: "Way of Heaven Welfare Organization",
+    iban: "PK61 UNIL 0109 0003 7792 8181",
   };
 
   const meezanDetails = {
@@ -141,6 +148,9 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
                     <SelectItem value="UBL" className="font-medium">
                       United Bank Limited (UBL)
                     </SelectItem>
+                    <SelectItem value="UBL2" className="font-medium">
+                      United Bank Limited (UBL) - ZAKAT Account
+                    </SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -226,6 +236,53 @@ export function DonationModal({ isOpen, onClose }: DonationModalProps) {
                 <div className="flex flex-col sm:flex-row gap-3 pt-4 animate-in slide-in-from-bottom duration-500 delay-800">
                   <Button
                     onClick={() => copyToClipboard(meezanDetails.iban, "iban")}
+                    className="flex-1 bg-secondary hover:bg-secondary/90 text-secondary-foreground hover:scale-105 hover:shadow-lg hover:shadow-secondary/25 transition-all duration-300 group relative overflow-hidden"
+                    disabled={copyingField === "iban"}
+                  >
+                    {copyingField === "iban" ? (
+                      <LoadingSpinner size="sm" className="mr-2" />
+                    ) : (
+                      <Copy className="w-4 h-4 mr-2 group-hover:scale-110 transition-transform duration-300" />
+                    )}
+                    {copyingField === "iban" ? "Copying..." : "Copy IBAN"}
+                    <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12"></div>
+                  </Button>
+                </div>
+              </>
+            )}
+            {paymentMethod === "UBL2" && (
+              <>
+                {/* Account Number */}
+                <div className="space-y-2 animate-in slide-in-from-left duration-300 delay-400">
+                  <label className="text-sm font-medium text-muted-foreground">Account Number</label>
+                  <div className="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10">
+                    <span className="font-mono font-medium">{ublDetails2.accountNumber}</span>
+                    {renderCopyButton("accountNumber", ublDetails2.accountNumber)}
+                  </div>
+                </div>
+
+                {/* Account Title */}
+                <div className="space-y-2 animate-in slide-in-from-left duration-300 delay-500">
+                  <label className="text-sm font-medium text-muted-foreground">Account Title</label>
+                  <div className="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10">
+                    <span className="font-medium">{ublDetails2.accountTitle}</span>
+                    {renderCopyButton("accountTitle", ublDetails2.accountTitle)}
+                  </div>
+                </div>
+
+                {/* IBAN */}
+                <div className="space-y-2 animate-in slide-in-from-left duration-300 delay-600">
+                  <label className="text-sm font-medium text-muted-foreground">IBAN</label>
+                  <div className="flex items-center justify-between p-3 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 group hover:shadow-lg hover:shadow-primary/10">
+                    <span className="font-mono font-medium text-primary">{ublDetails2.iban}</span>
+                    {renderCopyButton("iban", ublDetails2.iban)}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-4 animate-in slide-in-from-bottom duration-500 delay-800">
+                  <Button
+                    onClick={() => copyToClipboard(ublDetails2.iban, "iban")}
                     className="flex-1 bg-secondary hover:bg-secondary/90 text-secondary-foreground hover:scale-105 hover:shadow-lg hover:shadow-secondary/25 transition-all duration-300 group relative overflow-hidden"
                     disabled={copyingField === "iban"}
                   >
